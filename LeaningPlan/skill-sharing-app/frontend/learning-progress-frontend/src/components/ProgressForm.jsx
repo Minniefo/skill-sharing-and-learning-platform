@@ -78,7 +78,7 @@ export default function ProgressForm({ onAdded }) {
     return (
         <>
             <form onSubmit={handleSubmit} style={{ border: "1px solid #ddd", padding: "15px", borderRadius: "8px", marginBottom: "20px" }}>
-                <h2>📝 Share Your Learning Progress</h2>
+                <h2> Share Your Learning Progress</h2>
 
                 <p><strong>Template</strong></p>
                 <label><input type="radio" value="Completed Tutorial" checked={templateType === "Completed Tutorial"} onChange={(e) => setTemplateType(e.target.value)} /> Completed a Tutorial</label><br />

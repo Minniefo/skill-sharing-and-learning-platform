@@ -27,7 +27,7 @@ function App() {
 
     return (
         <div style={{ maxWidth: "600px", margin: "0 auto", padding: "20px" }}>
-            <h1>🌟 Learning Progress Tracker</h1>
+            <h1> --Learning Progress Tracker--</h1>
 
             {/* Progress Form */}
             <ProgressForm onAdded={loadProgress} />
