@@ -1,6 +1,6 @@
 import React, { useEffect, useState, createContext, useContext } from 'react';
 import { Question, QuizContextType, QuizSubmission } from '../types/quiz';
-import { quizApi } from '../services/QuizAPI';
+import { quizApi } from '../services/quizApi';
 
 const QuizContext = createContext<QuizContextType | undefined>(undefined);
 
