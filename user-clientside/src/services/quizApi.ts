@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Question, QuizSubmission } from '../types/quiz';
 
-const API_URL = 'http://localhost:8081/api';
+const API_URL = 'http://localhost:8083/api';
 
 export const quizApi = {
   // Fetch questions from the API
