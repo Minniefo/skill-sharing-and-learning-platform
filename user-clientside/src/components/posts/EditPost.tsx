@@ -14,7 +14,7 @@ export const EditPost: React.FC<EditPostProps> = ({
   onCancel
 }) => {
   const [formData, setFormData] = useState<PostFormData>({
-    postName: post.postImage,
+    postName: post.postName,
     postDescription: post.postDescription,
     postImage: post.postImage
   });
@@ -102,13 +102,13 @@ export const EditPost: React.FC<EditPostProps> = ({
           <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
             Post Name
           </label>
-          <input type="text" id="name" name="name" value={formData.postName} onChange={handleInputChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Enter post name" />
+          <input type="text" id="name" name="postName" value={formData.postName} onChange={handleInputChange} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Enter post name" />
         </div>
         <div className="mb-4">
           <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
             Description
           </label>
-          <textarea id="description" name="description" value={formData.postDescription} onChange={handleInputChange} rows={4} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Enter post description" />
+          <textarea id="description" name="postDescription" value={formData.postDescription} onChange={handleInputChange} rows={4} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Enter post description" />
         </div>
         <div className="mb-4">
           <label htmlFor="image" className="block text-sm font-medium text-gray-700 mb-1">
