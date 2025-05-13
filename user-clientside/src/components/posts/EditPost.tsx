@@ -16,7 +16,8 @@ export const EditPost: React.FC<EditPostProps> = ({
   const [formData, setFormData] = useState<PostFormData>({
     postName: post.postName,
     postDescription: post.postDescription,
-    postImage: post.postImage
+    postImage: post.postImage,
+    postVideo: post.postVideo 
   });
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>(post.postImage);
