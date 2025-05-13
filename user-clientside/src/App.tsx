@@ -4,6 +4,10 @@ import { QuizProvider } from "./contexts/QuizContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
+import DashboardPage from "./pages/Dashboard";
+import Layout from "./components/Layout";
+import Home from "./pages/Home";
+
 
 const App = () => {
   const mockUserId = "user123a";
@@ -12,13 +16,16 @@ const App = () => {
       <QuizProvider userId={mockUserId}>
         <Router>
           <Routes>
-            <Route path="/" element={<Quiz />} />
-          </Routes>
-          <Routes>
+            <Route path="/" element={<Layout><Home /></Layout>} />
+          
             <Route path="/signup" element={<SignupPage />} />
-          </Routes>
-          <Routes>
+          
             <Route path="/login" element={<LoginPage />} />
+          
+            <Route path="/dashboard" element={<Layout><DashboardPage /></Layout>} />
+
+            <Route path="/quiz" element={<Quiz />} />
+
           </Routes>
         </Router>
       </QuizProvider>

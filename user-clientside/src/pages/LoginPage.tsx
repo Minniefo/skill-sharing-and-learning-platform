@@ -50,13 +50,14 @@ const LoginPage: React.FC = () => {
         idToken
       );
 
-      navigate("/dashboard");
+      navigate("/");
     } catch (err: any) {
       setError(err.message);
     }
   };
 
   return (
+    
     <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Log In</h2>
@@ -112,6 +113,7 @@ const LoginPage: React.FC = () => {
         </p>
       </div>
     </div>
+    
   );
 };
 
