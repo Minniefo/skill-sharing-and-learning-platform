@@ -22,6 +22,7 @@ public class PostServiceImpl implements PostService {
                 .postName(dto.getPostName())
                 .postDescription(dto.getPostDescription())
                 .postImage(dto.getPostImage())
+                .postVideo(dto.getPostVideo())
                 .build();
         return mapToDto(postRepository.save(post));
     }
@@ -49,6 +50,7 @@ public class PostServiceImpl implements PostService {
             post.setPostName(dto.getPostName());
             post.setPostDescription(dto.getPostDescription());
             post.setPostImage(dto.getPostImage());
+            post.setPostVideo(dto.getPostVideo());
             return mapToDto(postRepository.save(post));
         }
         return null;
@@ -65,6 +67,7 @@ public class PostServiceImpl implements PostService {
                 .postName(post.getPostName())
                 .postDescription(post.getPostDescription())
                 .postImage(post.getPostImage())
+                .postVideo(post.getPostVideo())
                 .build();
     }
 }

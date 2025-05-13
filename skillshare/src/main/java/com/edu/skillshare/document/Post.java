@@ -19,5 +19,6 @@ public class Post {
     private String postName;
     private String postDescription;
     private String postImage;
+    private String postVideo;
 }
 
