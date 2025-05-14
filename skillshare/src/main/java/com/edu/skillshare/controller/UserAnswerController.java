@@ -10,7 +10,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/answers")
-@CrossOrigin(origins="*")
 @RequiredArgsConstructor
 public class UserAnswerController {
 

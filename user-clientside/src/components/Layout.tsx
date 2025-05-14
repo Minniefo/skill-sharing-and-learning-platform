@@ -18,6 +18,7 @@ const Layout = ({
   const handleLogout = async () => {
     try {
       await signOut(auth); // Sign out the user using Firebase
+      localStorage.removeItem("user"); // Remove user data from localStorage
       navigate('/login'); // Redirect to the login page
     } catch (error) {
       console.error('Error logging out:', error);

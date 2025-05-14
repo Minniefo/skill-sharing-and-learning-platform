@@ -19,6 +19,16 @@ const LoginPage: React.FC = () => {
       const user = result.user;
       const idToken = await user.getIdToken();
 
+      // Save to localStorage
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          uid: user.uid,
+          name: user.displayName || "",
+          email: user.email || "",
+        })
+      );
+
       // optional: send user to backend if not already registered
       await registerUserInBackend(
         {
@@ -41,6 +51,16 @@ const LoginPage: React.FC = () => {
       const user = result.user;
       const idToken = await user.getIdToken();
 
+      // Save to localStorage
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          uid: user.uid,
+          name: user.displayName || "",
+          email: user.email || "",
+        })
+      );
+
       await registerUserInBackend(
         {
           uid: user.uid,
@@ -57,7 +77,6 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    
     <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Log In</h2>
@@ -101,7 +120,11 @@ const LoginPage: React.FC = () => {
           onClick={handleGoogleLogin}
           className="w-full flex items-center justify-center gap-2 border border-gray-300 py-2 rounded hover:bg-gray-50"
         >
-          <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-5 h-5" />
+          <img
+            src="https://www.svgrepo.com/show/475656/google-color.svg"
+            alt="Google"
+            className="w-5 h-5"
+          />
           <span>Continue with Google</span>
         </button>
 
@@ -113,7 +136,6 @@ const LoginPage: React.FC = () => {
         </p>
       </div>
     </div>
-    
   );
 };
 

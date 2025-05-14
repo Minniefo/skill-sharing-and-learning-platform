@@ -10,10 +10,10 @@ import Home from "./pages/Home";
 
 
 const App = () => {
-  const mockUserId = "user123a";
+  
   return (
     <AuthProvider>
-      <QuizProvider userId={mockUserId}>
+      <QuizProvider>
         <Router>
           <Routes>
             <Route path="/" element={<Layout><Home /></Layout>} />

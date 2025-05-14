@@ -14,17 +14,25 @@ export const useQuiz = () => {
 
 interface QuizProviderProps {
   children: React.ReactNode;
-  userId: string;
 }
 
-export const QuizProvider: React.FC<QuizProviderProps> = ({ children, userId }) => {
+export const QuizProvider: React.FC<QuizProviderProps> = ({ children}) => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const user = localStorage.getItem('user') || '';
+  const userId = JSON.parse(user).uid;
+
   useEffect(() => {
+    if (!userId) {
+      setError('User not logged in');
+      setLoading(false);
+      return;
+    }
+
     const loadData = async () => {
       try {
         setLoading(true);
@@ -65,7 +73,7 @@ export const QuizProvider: React.FC<QuizProviderProps> = ({ children, userId }) 
       selectedOptionIndex
     };
 
-    quizApi.submitAnswer(submission).catch(err => {
+    quizApi.submitAnswer(userId, submission).catch(err => {
       console.error('Error submitting answer:', err);
     });
   };

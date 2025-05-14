@@ -1,6 +1,7 @@
 import React from 'react';
 import { Question } from '../types/quiz';
 import { CheckCircleIcon, XCircleIcon } from 'lucide-react';
+import { Navigate, useNavigate } from 'react-router-dom';
 interface QuizResultsProps {
   questions: Question[];
   userAnswers: Record<string, number>;
@@ -13,6 +14,7 @@ export const QuizResults: React.FC<QuizResultsProps> = ({
 }) => {
   const correctAnswers = questions.filter(q => userAnswers[q.id] === q.correctOptionIndex).length;
   const score = correctAnswers / questions.length * 100;
+  const navigate = useNavigate();
   return <div className="bg-white rounded-lg shadow-md p-6">
       <h2 className="text-2xl font-bold text-center mb-6">Quiz Results</h2>
       <div className="flex justify-center mb-6">
@@ -60,8 +62,11 @@ export const QuizResults: React.FC<QuizResultsProps> = ({
       })}
       </div>
       <div className="mt-8 text-center">
-        <button onClick={onRetry} className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+        <button onClick={onRetry} className="px-6 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors mr-2">
           Try Again
+        </button>
+        <button onClick={()=>navigate('/')} className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+          Back to Home
         </button>
       </div>
     </div>;
