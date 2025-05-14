@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { UserIcon, ShieldCheckIcon, BellIcon, HelpCircleIcon, LogOutIcon } from 'lucide-react';
+import { auth } from '../../firebase';
+import { signOut } from 'firebase/auth';
 
 // Mock driver data
 const mockDriverData = {
@@ -12,9 +14,14 @@ const mockDriverData = {
 const ProfilePage = () => {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem('isAuthenticated');
-    navigate('/login');
+  const handleLogout = async () => {
+    try {
+      await signOut(auth); // Sign out the user using Firebase
+      localStorage.removeItem("user"); // Remove user data from localStorage
+      navigate('/login'); // Redirect to the login page
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
   };
 
   return (

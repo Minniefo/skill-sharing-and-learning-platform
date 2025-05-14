@@ -25,7 +25,7 @@ interface QuestionsContextType {
 const QuestionsContext = createContext<QuestionsContextType | undefined>(undefined);
 
 // API base URL
-const API_URL = 'http://localhost:8081/api/questions';
+const API_URL = 'http://localhost:8083/api/questions';
 
 // Provider component
 export const QuestionsProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
