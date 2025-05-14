@@ -7,6 +7,7 @@ import com.edu.skillshare.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,6 +24,8 @@ public class PostServiceImpl implements PostService {
                 .postDescription(dto.getPostDescription())
                 .postImage(dto.getPostImage())
                 .postVideo(dto.getPostVideo())
+                .createdDate(Instant.now())
+                .updatedDate(Instant.now())
                 .build();
         return mapToDto(postRepository.save(post));
     }
@@ -68,6 +71,8 @@ public class PostServiceImpl implements PostService {
                 .postDescription(post.getPostDescription())
                 .postImage(post.getPostImage())
                 .postVideo(post.getPostVideo())
+                .createdDate(post.getCreatedDate())
+                .updatedDate(post.getUpdatedDate())
                 .build();
     }
 }

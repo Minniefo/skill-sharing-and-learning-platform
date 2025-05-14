@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,4 +16,6 @@ public class PostResponse {
     private String postDescription;
     private String postImage;
     private String postVideo;
+    private Instant createdDate;
+    private Instant updatedDate;
 }

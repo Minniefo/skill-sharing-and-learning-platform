@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.Instant;
+
 
 @Data
 @AllArgsConstructor
@@ -20,5 +22,7 @@ public class Post {
     private String postDescription;
     private String postImage;
     private String postVideo;
+    private Instant createdDate;
+    private Instant updatedDate;
 }
 
