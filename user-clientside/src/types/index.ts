@@ -4,7 +4,7 @@ export interface Post {
   postDescription: string;
   postImage: string;
   postVideo: string; 
-  createdAt?: string;
+  createdDate?: string;
 }
 export interface PostFormData {
   postName: string;

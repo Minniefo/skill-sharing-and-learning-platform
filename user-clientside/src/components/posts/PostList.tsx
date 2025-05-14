@@ -103,6 +103,9 @@ export const PostList: React.FC<PostListProps> = ({
               <p className="text-gray-600 mb-4 line-clamp-3">
                 {post.postDescription}
               </p>
+              <p className="text-gray-600 mb-4 line-clamp-3">
+                {post.createdDate}
+              </p>
               <div className="flex justify-between">
                 <Button
                   variant="secondary"
