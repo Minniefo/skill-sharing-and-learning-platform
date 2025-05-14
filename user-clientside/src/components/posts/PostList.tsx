@@ -18,6 +18,7 @@ export const PostList: React.FC<PostListProps> = ({
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [selectedPost, setSelectedPost] = useState<Post | null>(null); // State for selected post
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+  const [currentSlide, setCurrentSlide] = useState<{ [key: string]: 'image' | 'video' }>({}); // Track the current slide for each post
 
   const handleDelete = async (id: string) => {
     if (confirm('Are you sure you want to delete this post?')) {
@@ -44,6 +45,13 @@ export const PostList: React.FC<PostListProps> = ({
     setIsModalOpen(false); // Close the modal
   };
 
+  const toggleSlide = (postId: string) => {
+    setCurrentSlide((prev) => ({
+      ...prev,
+      [postId]: prev[postId] === 'image' ? 'video' : 'image'
+    }));
+  };
+
   if (posts.length === 0) {
     return (
       <p className="text-center text-gray-500">
@@ -61,34 +69,56 @@ export const PostList: React.FC<PostListProps> = ({
             className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer"
             onClick={() => handlePostClick(post)} // Open modal on post click
           >
-            {post.postImage && (
-              <img
-                src={post.postImage}
-                alt={post.postName}
-                className="w-full h-110 object-cover"
-              />
-            )}
-            {post.postVideo && (
-              <video
-                controls
-                className="w-full h-110 object-cover"
-                src={post.postVideo}
-              >
-                Your browser does not support the video tag.
-              </video>
-            )}
+            <div className="relative">
+              {currentSlide[post.id] !== 'video' && post.postImage && (
+                <img
+                  src={post.postImage}
+                  alt={post.postName}
+                  className="w-full h-110 object-cover"
+                />
+              )}
+              {currentSlide[post.id] === 'video' && post.postVideo && (
+                <video
+                  controls
+                  className="w-full h-110 object-cover"
+                  src={post.postVideo}
+                >
+                  Your browser does not support the video tag.
+                </video>
+              )}
+              {post.postImage && post.postVideo && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent triggering the modal
+                    toggleSlide(post.id);
+                  }}
+                  className="absolute bottom-2 right-2 px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600"
+                >
+                  {currentSlide[post.id] === 'video' ? 'View Image' : 'View Video'}
+                </button>
+              )}
+            </div>
             <div className="p-4">
               <h3 className="text-lg font-semibold mb-2">{post.postName}</h3>
               <p className="text-gray-600 mb-4 line-clamp-3">
                 {post.postDescription}
               </p>
               <div className="flex justify-between">
-                <Button variant="secondary" onClick={(e) => { e.stopPropagation(); onEditPost(post); }}>
+                <Button
+                  variant="secondary"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onEditPost(post);
+                  }}
+                >
                   Edit
                 </Button>
                 <Button
                   variant="danger"
-                  onClick={(e) => { e.stopPropagation(); handleDelete(post.id); }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete(post.id);
+                  }}
                   disabled={deletingId === post.id}
                 >
                   {deletingId === post.id ? 'Deleting...' : 'Delete'}
