@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuestions } from '../contexts/QuestionsContext';
 import { PlusCircleIcon, ListIcon, EditIcon, AlertTriangleIcon, UsersIcon } from 'lucide-react';
+import axios from 'axios';
 
 const Dashboard: React.FC = () => {
   const { questions, loading, error } = useQuestions();
+  const [users, setUsers] = useState([]);
+  const [loadings, setLoadings] = useState(true);
 
   // Mock user management statistics
   const userStats = {
@@ -12,6 +15,21 @@ const Dashboard: React.FC = () => {
     activeUsers: 95,
     admins: 1,
   };
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get('http://localhost:8083/api/user'); 
+        setUsers(response.data);
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      } finally {
+        setLoadings(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
   return (
     <div className="p-6 space-y-8">
@@ -38,7 +56,7 @@ const Dashboard: React.FC = () => {
           </div>
           <div className="ml-4">
             <h2 className="text-lg font-semibold text-gray-900">Total Users</h2>
-            <p className="text-3xl font-bold text-gray-700">{userStats.totalUsers}</p>
+            <p className="text-3xl font-bold text-gray-700">{users.length}</p>
           </div>
         </div>
 
@@ -48,7 +66,7 @@ const Dashboard: React.FC = () => {
           </div>
           <div className="ml-4">
             <h2 className="text-lg font-semibold text-gray-900">Active Users</h2>
-            <p className="text-3xl font-bold text-gray-700">{userStats.activeUsers}</p>
+            <p className="text-3xl font-bold text-gray-700">{users.length}</p>
           </div>
         </div>
 

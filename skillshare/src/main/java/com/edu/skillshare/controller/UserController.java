@@ -4,12 +4,18 @@ package com.edu.skillshare.controller;
 import com.edu.skillshare.document.User;
 import com.edu.skillshare.dto.UserDTO;
 import com.edu.skillshare.repository.UserRepository;
+import com.edu.skillshare.service.UserService;
+import com.google.firebase.auth.ExportedUserRecord;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseToken;
+import com.google.firebase.auth.ListUsersPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -18,6 +24,14 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(

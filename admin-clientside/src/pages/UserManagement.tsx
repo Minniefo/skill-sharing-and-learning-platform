@@ -1,26 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { EditIcon, TrashIcon, SearchIcon } from 'lucide-react';
 
 const UserManagement: React.FC = () => {
-  // Mock user data
-  const mockUsers = [
-    { id: '1', name: 'Alex Johnson', email: 'alex.johnson@example.com', role: 'Admin', status: 'Active' },
-    { id: '2', name: 'Emily Davis', email: 'emily.davis@example.com', role: 'User', status: 'Active' },
-    { id: '3', name: 'Michael Brown', email: 'michael.brown@example.com', role: 'User', status: 'Inactive' },
-    { id: '4', name: 'Sarah Wilson', email: 'sarah.wilson@example.com', role: 'Admin', status: 'Active' },
-  ];
-
+  const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [users, setUsers] = useState(mockUsers);
+  const [loading, setLoading] = useState(true);
 
-  const filteredUsers = users.filter((user) =>
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get('http://localhost:8083/api/user'); 
+        setUsers(response.data);
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  const filteredUsers = users.filter((user: any) =>
     user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
-      setUsers(users.filter((user) => user.id !== id));
+      try {
+        await axios.delete(`/api/users/${id}`); // Replace with your actual API endpoint
+        setUsers(users.filter((user: any) => user.id !== id));
+      } catch (error) {
+        console.error('Error deleting user:', error);
+      }
     }
   };
 
@@ -47,66 +61,47 @@ const UserManagement: React.FC = () => {
 
       {/* User Table */}
       <div className="bg-white rounded-lg shadow overflow-hidden">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Name
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Email
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Role
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Status
-              </th>
-              <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {filteredUsers.map((user) => (
-              <tr key={user.id}>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900">{user.name}</div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-500">{user.email}</div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{user.role}</div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span
-                    className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                      user.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                    }`}
-                  >
-                    {user.status}
-                  </span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <button
-                    className="text-indigo-600 hover:text-indigo-900 mr-4"
-                    onClick={() => alert(`Edit user: ${user.name}`)}
-                  >
-                    <EditIcon className="h-5 w-5 inline-block" />
-                  </button>
-                  <button
-                    className="text-red-600 hover:text-red-900"
-                    onClick={() => handleDelete(user.id)}
-                  >
-                    <TrashIcon className="h-5 w-5 inline-block" />
-                  </button>
-                </td>
+        {loading ? (
+          <div className="p-6 text-center text-gray-500">Loading users...</div>
+        ) : (
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        {filteredUsers.length === 0 && (
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {filteredUsers.map((user: any) => (
+                <tr key={user.id}>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm font-medium text-gray-900">{user.name}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className=" text-sm text-center text-gray-500">{user.email}</div>
+                  </td>
+                  
+                
+                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <button
+                      className="text-indigo-600 hover:text-indigo-900 mr-4"
+                      onClick={() => alert(`Edit user: ${user.name}`)}
+                    >
+                    </button>
+                    <button
+                      className="text-red-600 hover:text-red-900"
+                      onClick={() => handleDelete(user.id)}
+                    >
+                      <TrashIcon className="h-5 w-5 inline-block" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+        {!loading && filteredUsers.length === 0 && (
           <div className="p-6 text-center text-gray-500">No users found.</div>
         )}
       </div>
