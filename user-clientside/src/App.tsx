@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/Dashboard";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
+import { Posts } from "./pages/posts";
 
 
 const App = () => {
@@ -25,6 +26,8 @@ const App = () => {
             <Route path="/dashboard" element={<Layout><DashboardPage /></Layout>} />
 
             <Route path="/quiz" element={<Quiz />} />
+
+            <Route path="/testing" element={<Posts />} />
 
           </Routes>
         </Router>
