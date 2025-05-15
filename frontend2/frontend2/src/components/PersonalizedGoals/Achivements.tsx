@@ -36,7 +36,7 @@ const Achievements: React.FC<Props> = ({
         }}
       >
         <AchievementsIcon sx={{ color: theme.palette.primary.main, mr: 1 }} />
-        Learning Achievements
+        Your Learning Achievements
       </Typography>
       <Grid container spacing={3}>
         {achievementsData.map((achievement) => {
