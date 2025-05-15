@@ -8,6 +8,7 @@ import DashboardPage from "./pages/Dashboard";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import { Posts } from "./pages/posts";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 
 const App = () => {
@@ -23,11 +24,11 @@ const App = () => {
           
             <Route path="/login" element={<LoginPage />} />
           
-            <Route path="/dashboard" element={<Layout><DashboardPage /></Layout>} />
+            <Route path="/dashboard" element={<ProtectedRoute><Layout><DashboardPage /></Layout></ProtectedRoute>} />
 
-            <Route path="/quiz" element={<Quiz />} />
+            <Route path="/quiz" element={<ProtectedRoute><Layout><Quiz /></Layout></ProtectedRoute>} />
 
-            <Route path="/testing" element={<Posts />} />
+            <Route path="/testing" element={<ProtectedRoute><Layout><Posts /></Layout></ProtectedRoute>} />
 
           </Routes>
         </Router>

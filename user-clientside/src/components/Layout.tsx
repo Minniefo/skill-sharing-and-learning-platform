@@ -42,9 +42,9 @@ const Layout = ({
                   <LayoutDashboardIcon className="h-5 w-5" />
                   <span>Dashboard</span>
                 </Link>
-                <Link to="/create-post" className="flex items-center space-x-1 text-gray-600 hover:text-indigo-600">
+                <Link to="/testing" className="flex items-center space-x-1 text-gray-600 hover:text-indigo-600">
                   <BookIcon className="h-5 w-5" />
-                  <span>Create Post</span>
+                  <span>My Posts</span>
                 </Link>
                 <button onClick={handleLogout} className="flex items-center space-x-1 text-gray-600 hover:text-indigo-600">
                   <LogOutIcon className="h-5 w-5" />

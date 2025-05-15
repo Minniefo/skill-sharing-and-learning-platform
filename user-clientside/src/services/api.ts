@@ -1,5 +1,5 @@
 import type { Post, PostFormData } from '../types/index';
-const API_URL = 'http://localhost:8081/api'; // Replace with your actual backend API URL
+const API_URL = 'http://localhost:8083/api'; // Replace with your actual backend API URL
 // Fetch all posts
 export const fetchPosts = async (): Promise<Post[]> => {
   const response = await fetch(`${API_URL}/posts`);

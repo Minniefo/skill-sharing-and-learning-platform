@@ -23,8 +23,17 @@ export const QuizProvider: React.FC<QuizProviderProps> = ({ children}) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const user = localStorage.getItem('user') || '';
-  const userId = JSON.parse(user).uid;
+  let userId = '';
+  try {
+    const userString = localStorage.getItem('user');
+    if (userString) {
+      const user = JSON.parse(userString);
+      userId = user?.uid || '';
+    }
+  } catch (e) {
+    console.error('Failed to parse user from localStorage:', e);
+  }
+  
 
   useEffect(() => {
     if (!userId) {
