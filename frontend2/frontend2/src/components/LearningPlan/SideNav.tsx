@@ -1,4 +1,4 @@
-// SideNav.tsx
+
 import React from "react";
 
 import SchoolIcon from "@mui/icons-material/School";

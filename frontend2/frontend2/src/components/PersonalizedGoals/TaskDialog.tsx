@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { Close as CloseIcon } from "@mui/icons-material";
 
-//import LearningPlanApp from "../LearnPlanSharing/LearningPlanUI";
+
 
 interface Props {
   open: boolean;
