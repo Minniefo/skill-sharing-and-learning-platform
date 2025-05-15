@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { uploadImageToGCS } from '../../services/storage';
 import { createPost } from '../../services/api';
-import type { Post, PostFormData } from '../../types/index';
+import type { Post, CreatePostFormData } from '../../types/index';
 import { Button } from '../ui/Button';
 
 interface CreatePostProps {
@@ -9,7 +9,9 @@ interface CreatePostProps {
 }
 
 export const CreatePost: React.FC<CreatePostProps> = ({ onPostCreated }) => {
-  const [formData, setFormData] = useState<PostFormData>({
+  const [formData, setFormData] = useState<CreatePostFormData>({
+    userId: '',
+    userName: '',
     postName: '',
     postDescription: '',
     postImage: '',
@@ -22,6 +24,23 @@ export const CreatePost: React.FC<CreatePostProps> = ({ onPostCreated }) => {
   const [isUploadingVideo, setIsUploadingVideo] = useState(false); // State for video upload
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Retrieve user data from local storage
+    const user = localStorage.getItem('user');
+    if (user) {
+      try {
+        const parsedUser = JSON.parse(user);
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          userId: parsedUser.uid || '',
+          userName: parsedUser.name || ''
+        }));
+      } catch (error) {
+        console.error('Error parsing user data from local storage:', error);
+      }
+    }
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -119,6 +138,8 @@ export const CreatePost: React.FC<CreatePostProps> = ({ onPostCreated }) => {
       onPostCreated(newPost);
       // Reset form
       setFormData({
+        userId: '',
+        userName: '',
         postName: '',
         postDescription: '',
         postImage: '',

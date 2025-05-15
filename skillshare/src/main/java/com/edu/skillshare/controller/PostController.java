@@ -1,5 +1,6 @@
 package com.edu.skillshare.controller;
 
+import com.edu.skillshare.dto.CreatePostReq;
 import com.edu.skillshare.dto.PostReq;
 import com.edu.skillshare.dto.PostResponse;
 import com.edu.skillshare.service.PostService;
@@ -16,7 +17,7 @@ public class PostController {
     private  final PostService postService;
 
     @PostMapping
-    public PostResponse createPost(@RequestBody PostReq dto) {
+    public PostResponse createPost(@RequestBody CreatePostReq dto) {
         return postService.createPost(dto);
     }
 
@@ -24,6 +25,9 @@ public class PostController {
     public PostResponse getPostById(@PathVariable String id) {
         return postService.getPostById(id);
     }
+
+    @GetMapping("/user/{userid}")
+    public List<PostResponse> getPostByUserId(@PathVariable String userid) {return postService.getPostByUserId(userid);}
 
     @GetMapping
     public List<PostResponse> getAllPosts() {

@@ -12,6 +12,8 @@ import java.time.Instant;
 @Builder
 public class PostResponse {
     private String id;
+    private String userId;
+    private String userName;
     private String postName;
     private String postDescription;
     private String postImage;

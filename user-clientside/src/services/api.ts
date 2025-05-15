@@ -16,6 +16,16 @@ export const fetchPost = async (id: string): Promise<Post> => {
   }
   return response.json();
 };
+
+// Fetch posts by user ID
+export const fetchPostByUserId = async (id: string): Promise<Post[]> => {
+  const response = await fetch(`${API_URL}/posts/user/${id}`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch post');
+  }
+  return response.json();
+};
+
 // Create a new post
 export const createPost = async (postData: PostFormData): Promise<Post> => {
   const response = await fetch(`${API_URL}/posts`, {

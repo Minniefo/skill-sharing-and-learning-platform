@@ -18,6 +18,8 @@ import java.time.Instant;
 public class Post {
     @Id
     private String id;
+    private String userId;
+    private String userName;
     private String postName;
     private String postDescription;
     private String postImage;

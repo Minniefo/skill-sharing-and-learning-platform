@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CreatePost } from '../components/posts/CreatePost';
 import { PostList } from '../components/posts/PostList';
 import { EditPost } from '../components/posts/EditPost';
-import { fetchPosts } from '../services/api';
+import { fetchPostByUserId } from '../services/api';
 import type { Post } from '../types/index';
 export const Posts: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -11,8 +11,18 @@ export const Posts: React.FC = () => {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const fetchedPosts = await fetchPosts();
-        setPosts(fetchedPosts);
+        // Retrieve user object from local storage
+        const user = localStorage.getItem('user');
+        if (user) {
+          const parsedUser = JSON.parse(user);
+          const userId = parsedUser.uid;
+
+          // Fetch posts by userId
+          const fetchedPosts = await fetchPostByUserId(userId);
+          setPosts(fetchedPosts);
+        } else {
+          console.error('No user found in local storage');
+        }
       } catch (error) {
         console.error('Failed to fetch posts:', error);
       } finally {

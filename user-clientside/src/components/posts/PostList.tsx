@@ -99,6 +99,7 @@ export const PostList: React.FC<PostListProps> = ({
               )}
             </div>
             <div className="p-4">
+            <h3 className="text-lg font-semibold mb-2">{post.userName}</h3>
               <h3 className="text-lg font-semibold mb-2">{post.postName}</h3>
               <p className="text-gray-600 mb-4 line-clamp-3">
                 {post.postDescription}

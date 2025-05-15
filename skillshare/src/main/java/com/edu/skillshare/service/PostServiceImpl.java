@@ -1,6 +1,7 @@
 package com.edu.skillshare.service;
 
 import com.edu.skillshare.document.Post;
+import com.edu.skillshare.dto.CreatePostReq;
 import com.edu.skillshare.dto.PostReq;
 import com.edu.skillshare.dto.PostResponse;
 import com.edu.skillshare.repository.PostRepository;
@@ -18,8 +19,10 @@ public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
 
     @Override
-    public PostResponse createPost(PostReq dto) {
+    public PostResponse createPost(CreatePostReq dto) {
         Post post = Post.builder()
+                .userId((dto.getUserId()))
+                .userName((dto.getUserName()))
                 .postName(dto.getPostName())
                 .postDescription(dto.getPostDescription())
                 .postImage(dto.getPostImage())
@@ -35,6 +38,14 @@ public class PostServiceImpl implements PostService {
         return postRepository.findById(id)
                 .map(this::mapToDto)
                 .orElse(null);
+    }
+
+    @Override
+    public List<PostResponse> getPostByUserId(String userId) {
+        return postRepository.findByUserId(userId)
+                .stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -67,6 +78,8 @@ public class PostServiceImpl implements PostService {
     private PostResponse mapToDto(Post post) {
         return PostResponse.builder()
                 .id(post.getId())
+                .userId(post.getUserId())
+                .userName(post.getUserName())
                 .postName(post.getPostName())
                 .postDescription(post.getPostDescription())
                 .postImage(post.getPostImage())
