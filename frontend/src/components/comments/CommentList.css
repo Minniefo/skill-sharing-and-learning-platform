@@ -1,0 +1,24 @@
+.comment-section {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #c9d3e5;
+}
+
+.comment-section h3 {
+  font-size: 1.45rem;
+  margin-bottom: 1rem;
+  color: #0a3c92;
+  margin-left: 15px;
+}
+
+
+.comments-container {
+  margin-top: 1.5rem;
+}
+
+.no-comments {
+  color: #9ca3af;
+  font-style: italic;
+  text-align: center;
+  padding: 1rem;
+}
