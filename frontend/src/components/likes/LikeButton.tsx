@@ -15,7 +15,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ postId, onLikeToggle }) => {
   useEffect(() => {
     const checkIfLiked = async () => {
       try {
-        const response = await likeService.checkIfUserLikedPost(postId); // Assumes backend returns { success: true, data: true/false }
+        const response = await likeService.checkIfUserLikedPost(postId); 
         const userLiked = response.data.data; // Assumes backend returns { success: true, data: true/false }
         setLiked(userLiked);
       } catch (error) {

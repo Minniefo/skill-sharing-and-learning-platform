@@ -27,36 +27,35 @@ const NotificationList = ({ autoRefresh = true, compact = false, refreshTrigger 
   }, [autoRefresh, refreshTrigger, activeFilter]);
 
   const fetchNotifications = async () => {
-    try {
-      setLoading(true);
-      let response;
+  try {
+    setLoading(true);
+    let response;
 
-      // Use the appropriate API based on filter
-      switch (activeFilter) {
-        case 'likes':
-          response = await notificationService.getUserNotifications();
-          break;
-        case 'comments':
-                    response = await notificationService.getUserNotifications();
-          break;
-        case 'mentions':
-          response = await notificationService.getUserNotifications('MENTION'); // Correctly passed 'mentions' here
-          break;
-        case 'all':
-        default:
-          response = await notificationService.getUserNotifications();
-          break;
-      }
-
-      setNotifications(response.data);
-      setError(null);
-    } catch (error) {
-      console.error('Error fetching notifications:', error);
-      setError('Failed to load notifications. Please try again later.');
-    } finally {
-      setLoading(false);
+    switch (activeFilter) {
+      case 'likes':
+        response = await notificationService.getUserNotifications('LIKE');
+        break;
+      case 'comments':
+        response = await notificationService.getUserNotifications('COMMENT');
+        break;
+      case 'mentions':
+        response = await notificationService.getUserNotifications('MENTION');
+        break;
+      case 'all':
+      default:
+        response = await notificationService.getUserNotifications();
+        break;
     }
-  };
+
+    setNotifications(response.data);
+    setError(null);
+  } catch (error) {
+    console.error('Error fetching notifications:', error);
+    setError('Failed to load notifications. Please try again later.');
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handleMarkAllAsRead = async () => {
     try {
