@@ -1,4 +1,5 @@
 import type { Post, PostFormData } from '../types/index';
+import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosError, AxiosHeaders } from 'axios';
 const API_URL = 'http://localhost:8083/api'; // Replace with your actual backend API URL
 // Fetch all posts
 export const fetchPosts = async (): Promise<Post[]> => {
@@ -63,3 +64,13 @@ export const deletePost = async (id: string): Promise<void> => {
     throw new Error('Failed to delete post');
   }
 };
+
+// Create Axios instance
+const api: AxiosInstance = axios.create({
+  baseURL: API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+export default api;

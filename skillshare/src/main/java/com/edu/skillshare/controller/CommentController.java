@@ -14,7 +14,6 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api/comments")
 public class CommentController {
 
@@ -56,8 +55,8 @@ public class CommentController {
             
             // For demo purposes, use a fixed user ID and username
             // In a real app with authentication, you would get these from security context
-            String userId = "user123"; // Could be "admin123" for admin user
-            String username = "Demo User"; // Or "Admin" for admin user
+            //String userId = "user123"; // Could be "admin123" for admin user
+            //String username = "Demo User"; // Or "Admin" for admin user
             
             comment.setUserId((String) payload.get("userId"));
             comment.setUsername((String) payload.get("username"));

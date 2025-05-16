@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String getNameByUserId(String userId) {
-        return this.userRepository.findByName(userId).get().getName();
+        return this.userRepository.findByUid(userId).get().getName();
     }
 
 }
