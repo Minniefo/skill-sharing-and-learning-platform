@@ -33,10 +33,10 @@ const NotificationList = ({ autoRefresh = true, compact = false, refreshTrigger 
 
     switch (activeFilter) {
       case 'likes':
-        response = await notificationService.getUserNotifications('LIKE');
+        response = await notificationService.getUserNotifications();
         break;
       case 'comments':
-        response = await notificationService.getUserNotifications('COMMENT');
+        response = await notificationService.getUserNotifications();
         break;
       case 'mentions':
         response = await notificationService.getUserNotifications('MENTION');

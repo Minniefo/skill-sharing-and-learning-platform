@@ -19,8 +19,8 @@ public class CommentService {
     private NotificationService notificationService;
     
     @Autowired
-    private PostService postService; // You'll need to create this service
-
+    private PostService postService; 
+    
     // Fetch all comments
     public List<Comment> getAllComments() {
         return commentRepository.findAll();
