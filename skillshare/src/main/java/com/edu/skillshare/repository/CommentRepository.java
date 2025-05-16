@@ -1,6 +1,7 @@
-package com.backend.repository;
+package com.edu.skillshare.repository;
 
-import com.backend.model.Comment;
+
+import com.edu.skillshare.document.Comment;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;

@@ -1,7 +1,8 @@
-package com.backend.service;
+package com.edu.skillshare.service;
 
-import com.backend.model.Like;
-import com.backend.repository.LikeRepository;
+
+import com.edu.skillshare.document.Like;
+import com.edu.skillshare.repository.LikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,9 @@ import java.util.UUID;
 
 @Service
 public class LikeService {
+    @Autowired
+    private UserService userService;
+
     @Autowired
     private LikeRepository likeRepository;
     
@@ -80,9 +84,9 @@ public class LikeService {
 
     // Helper method to get username - in a real app, this would query your user database
     private String getUsernameById(String userId) {
-        if ("admin123".equals(userId)) {
-            return "Admin";
-        }
-        return "Demo User";
+        //if ("admin123".equals(userId)) {
+          //  return "Admin";
+        //}
+        return userService.getNameByUserId(userId);
     }
 }

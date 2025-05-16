@@ -1,7 +1,8 @@
-package com.backend.service;
+package com.edu.skillshare.service;
 
-import com.backend.model.Comment;
-import com.backend.repository.CommentRepository;
+
+import com.edu.skillshare.document.Comment;
+import com.edu.skillshare.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

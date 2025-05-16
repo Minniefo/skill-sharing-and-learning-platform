@@ -1,7 +1,8 @@
-package com.backend.service;
+package com.edu.skillshare.service;
 
-import com.backend.model.Notification;
-import com.backend.repository.NotificationRepository;
+
+import com.edu.skillshare.document.Notification;
+import com.edu.skillshare.repository.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -10,6 +11,8 @@ import java.util.UUID;
 
 @Service
 public class NotificationService {
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private NotificationRepository notificationRepository;
@@ -168,9 +171,9 @@ public class NotificationService {
     // In a real app, this would query your user database
     private String getUserIdByUsername(String username) {
         // Mock implementation
-        if ("admin".equals(username)) return "admin123";
-        if ("john".equals(username)) return "john456";
+        //if ("admin".equals(username)) return "admin123";
+        //if ("john".equals(username)) return "john456";
         // For demo purposes, return a default user ID for any other username
-        return "user123";
+        return userService.getUserIdByName(username);
     }
 }

@@ -1,4 +1,4 @@
-package com.backend.model;
+package com.edu.skillshare.document;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

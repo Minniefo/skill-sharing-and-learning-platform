@@ -15,4 +15,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllUsers(){return this.userRepository.findAll();}
 
+    @Override
+    public String getUserIdByName(String name){
+        return this.userRepository.findByName(name).get().getUid();
+    }
+
+    @Override
+    public String getNameByUserId(String userId) {
+        return this.userRepository.findByName(userId).get().getName();
+    }
+
 }

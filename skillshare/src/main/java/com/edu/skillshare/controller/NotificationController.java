@@ -1,7 +1,8 @@
-package com.backend.controller;
+package com.edu.skillshare.controller;
 
-import com.backend.model.Notification;
-import com.backend.service.NotificationService;
+
+import com.edu.skillshare.document.Notification;
+import com.edu.skillshare.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +20,10 @@ public class NotificationController {
     
     @GetMapping
     public ResponseEntity<List<Notification>> getUserNotifications(
+            @RequestParam String userId,
             @RequestParam(required = false) String type) {
         // In a real app, get the user ID from security context
-        String userId = "user123"; // Replace with actual user ID from security context
+        //String userId = "user123"; // Replace with actual user ID from security context
         
         if (type != null && !type.isEmpty()) {
             String[] types = type.split(",");
@@ -34,16 +36,16 @@ public class NotificationController {
     }
     
     @GetMapping("/unread")
-    public ResponseEntity<List<Notification>> getUnreadNotifications() {
+    public ResponseEntity<List<Notification>> getUnreadNotifications(@RequestParam String userId) {
         // In a real app, get the user ID from security context
-        String userId = "user123"; // Replace with actual user ID from security context
+        //String userId = "user123"; // Replace with actual user ID from security context
         return ResponseEntity.ok(notificationService.getUnreadNotifications(userId));
     }
     
     @GetMapping("/unread-count")
-    public ResponseEntity<Map<String, Long>> getUnreadCount() {
+    public ResponseEntity<Map<String, Long>> getUnreadCount(@RequestParam String userId) {
         // In a real app, get the user ID from security context
-        String userId = "user123"; // Replace with actual user ID from security context
+        //String userId = "user123"; // Replace with actual user ID from security context
         return ResponseEntity.ok(Map.of("count", notificationService.getUnreadCount(userId)));
     }
     
@@ -58,17 +60,17 @@ public class NotificationController {
     }
     
     @PostMapping("/read-all")
-    public ResponseEntity<Void> markAllAsRead() {
+    public ResponseEntity<Void> markAllAsRead(@RequestParam String userId) {
         // In a real app, get the user ID from security context
-        String userId = "user123"; // Replace with actual user ID from security context
+        //String userId = "user123"; // Replace with actual user ID from security context
         notificationService.markAllAsRead(userId);
         return ResponseEntity.ok().build();
     }
     
-    @PostMapping("/test")
-    public ResponseEntity<Notification> createTestNotification(@RequestBody Map<String, String> payload) {
+    @PostMapping("/test/{userId}")
+    public ResponseEntity<Notification> createTestNotification(@PathVariable String userId, @RequestBody Map<String, String> payload) {
         // In a real app, get the user ID from security context
-        String userId = "user123"; // Replace with actual user ID from security context
+        //String userId = "user123"; // Replace with actual user ID from security context
         String type = payload.getOrDefault("type", "COMMENT");
         
         String message = "This is a test " + type.toLowerCase() + " notification";
@@ -80,10 +82,10 @@ public class NotificationController {
         return ResponseEntity.ok(notification);
     }
     
-    @PostMapping("/test-self-notification")
-    public ResponseEntity<Notification> createSelfTestNotification(@RequestBody Map<String, String> payload) {
+    @PostMapping("/test-self-notification/{userId}")
+    public ResponseEntity<Notification> createSelfTestNotification(@PathVariable String userId, @RequestBody Map<String, String> payload) {
         // In a real app, get the user ID from security context
-        String userId = "user123"; // Replace with actual user ID from security context
+        //String userId = "user123"; // Replace with actual user ID from security context
         String type = payload.getOrDefault("type", "SELF_COMMENT");
         
         String message = "This is a test of your own " + type.toLowerCase().replace("self_", "") + " notification";

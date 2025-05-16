@@ -1,7 +1,8 @@
-package com.backend.controller;
+package com.edu.skillshare.controller;
 
-import com.backend.model.Comment;
-import com.backend.service.CommentService;
+
+import com.edu.skillshare.document.Comment;
+import com.edu.skillshare.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,8 +59,8 @@ public class CommentController {
             String userId = "user123"; // Could be "admin123" for admin user
             String username = "Demo User"; // Or "Admin" for admin user
             
-            comment.setUserId(userId);
-            comment.setUsername(username);
+            comment.setUserId((String) payload.get("userId"));
+            comment.setUsername((String) payload.get("username"));
             
             Comment savedComment = commentService.addComment(comment);
             

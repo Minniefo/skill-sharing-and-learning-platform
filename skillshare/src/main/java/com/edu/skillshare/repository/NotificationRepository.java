@@ -1,6 +1,6 @@
-package com.backend.repository;
+package com.edu.skillshare.repository;
 
-import com.backend.model.Notification;
+import com.edu.skillshare.document.Notification;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;

@@ -41,6 +41,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public String getPostOwner(String id) {
+        return postRepository.findById(id).get().getUserId();
+    }
+
+    @Override
     public List<PostResponse> getPostByUserId(String userId) {
         return postRepository.findByUserId(userId)
                 .stream()
