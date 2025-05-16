@@ -4,7 +4,7 @@ import notificationService from '../../services/notificationService';
 import './NotificationList.css';
 
 // Extend NotificationType to include 'mentions'
-type NotificationType = 'likes' | 'comments' | 'mentions' | 'all'; // Add 'mentions' to the union
+type NotificationType = 'likes' | 'comments' | 'mentions' | 'all'; 
 
 const NotificationList = ({ autoRefresh = true, compact = false, refreshTrigger = 0, showAllTypes = true }) => {
   const [notifications, setNotifications] = useState<any[]>([]);
