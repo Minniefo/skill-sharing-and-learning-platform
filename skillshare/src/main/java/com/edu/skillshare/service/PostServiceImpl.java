@@ -26,6 +26,8 @@ public class PostServiceImpl implements PostService {
                 .postName(dto.getPostName())
                 .postDescription(dto.getPostDescription())
                 .postImage(dto.getPostImage())
+                .postImage1(dto.getPostImage1())
+                .postImage2(dto.getPostImage2())
                 .postVideo(dto.getPostVideo())
                 .createdDate(Instant.now())
                 .updatedDate(Instant.now())
@@ -69,6 +71,8 @@ public class PostServiceImpl implements PostService {
             post.setPostName(dto.getPostName());
             post.setPostDescription(dto.getPostDescription());
             post.setPostImage(dto.getPostImage());
+            post.setPostImage1(dto.getPostImage1());
+            post.setPostImage2(dto.getPostImage2());
             post.setPostVideo(dto.getPostVideo());
             return mapToDto(postRepository.save(post));
         }
@@ -88,6 +92,8 @@ public class PostServiceImpl implements PostService {
                 .postName(post.getPostName())
                 .postDescription(post.getPostDescription())
                 .postImage(post.getPostImage())
+                .postImage1(post.getPostImage1())
+                .postImage2(post.getPostImage2())
                 .postVideo(post.getPostVideo())
                 .createdDate(post.getCreatedDate())
                 .updatedDate(post.getUpdatedDate())

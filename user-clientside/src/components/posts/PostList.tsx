@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import type { Post } from '../../types/index';
 import { Button } from '../ui/Button';
 import { deletePost } from '../../services/api';
-import { PostModal } from './PostModal'; // Import the PostModal component
+import { PostModal } from './PostModal';
 
 interface PostListProps {
   posts: Post[];
@@ -10,15 +10,19 @@ interface PostListProps {
   onDeletePost: (id: string) => void;
 }
 
+type SlideKey = 'image' | 'image1' | 'image2' | 'video';
+
 export const PostList: React.FC<PostListProps> = ({
   posts,
   onEditPost,
   onDeletePost
 }) => {
   const [deletingId, setDeletingId] = useState<string | null>(null);
-  const [selectedPost, setSelectedPost] = useState<Post | null>(null); // State for selected post
-  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
-  const [currentSlide, setCurrentSlide] = useState<{ [key: string]: 'image' | 'video' }>({}); // Track the current slide for each post
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Track which slide is showing for each post by id
+  const [currentSlide, setCurrentSlide] = useState<Record<string, SlideKey>>({});
 
   const handleDelete = async (id: string) => {
     if (confirm('Are you sure you want to delete this post?')) {
@@ -36,20 +40,62 @@ export const PostList: React.FC<PostListProps> = ({
   };
 
   const handlePostClick = (post: Post) => {
-    setSelectedPost(post); // Set the selected post
-    setIsModalOpen(true); // Open the modal
+    setSelectedPost(post);
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    setSelectedPost(null); // Clear the selected post
-    setIsModalOpen(false); // Close the modal
+    setSelectedPost(null);
+    setIsModalOpen(false);
   };
 
-  const toggleSlide = (postId: string) => {
-    setCurrentSlide((prev) => ({
-      ...prev,
-      [postId]: prev[postId] === 'image' ? 'video' : 'image'
-    }));
+  const changeSlide = (postId: string, slide: SlideKey) => {
+    setCurrentSlide(prev => ({ ...prev, [postId]: slide }));
+  };
+
+  const renderMedia = (post: Post) => {
+    const slide = currentSlide[post.id] || 'image';
+
+    if (slide === 'video' && post.postVideo) {
+      return (
+        <video
+          controls
+          className="w-full h-110 object-cover"
+          src={post.postVideo}
+        >
+          Your browser does not support the video tag.
+        </video>
+      );
+    }
+
+    if (slide === 'image1' && post.postImage1) {
+      return (
+        <img
+          src={post.postImage1}
+          alt={`${post.postName} - photo 1`}
+          className="w-full h-110 object-cover"
+        />
+      );
+    }
+
+    if (slide === 'image2' && post.postImage2) {
+      return (
+        <img
+          src={post.postImage2}
+          alt={`${post.postName} - photo 2`}
+          className="w-full h-110 object-cover"
+        />
+      );
+    }
+
+    // Fallback to main image
+    return (
+      <img
+        src={post.postImage}
+        alt={post.postName}
+        className="w-full h-110 object-cover"
+      />
+    );
   };
 
   if (posts.length === 0) {
@@ -63,54 +109,71 @@ export const PostList: React.FC<PostListProps> = ({
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {posts.map((post) => (
+        {posts.map(post => (
           <div
             key={post.id}
             className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer"
-            onClick={() => handlePostClick(post)} // Open modal on post click
+            onClick={() => handlePostClick(post)}
           >
             <div className="relative">
-              {currentSlide[post.id] !== 'video' && post.postImage && (
-                <img
-                  src={post.postImage}
-                  alt={post.postName}
-                  className="w-full h-110 object-cover"
-                />
-              )}
-              {currentSlide[post.id] === 'video' && post.postVideo && (
-                <video
-                  controls
-                  className="w-full h-110 object-cover"
-                  src={post.postVideo}
-                >
-                  Your browser does not support the video tag.
-                </video>
-              )}
-              {post.postImage && post.postVideo && (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation(); // Prevent triggering the modal
-                    toggleSlide(post.id);
-                  }}
-                  className="absolute bottom-2 right-2 px-3 py-1 bg-blue-500 text-white text-sm rounded hover:bg-blue-600"
-                >
-                  {currentSlide[post.id] === 'video' ? 'View Image' : 'View Video'}
-                </button>
-              )}
+              {renderMedia(post)}
+
+              {/* Slide‑toggle buttons (only for available assets) */}
+              <div className="absolute bottom-2 right-2 flex gap-2">
+                {post.postImage && (
+                  <SlideButton
+                    label="Main Photo"
+                    active={currentSlide[post.id] === 'image' || !currentSlide[post.id]}
+                    onClick={e => {
+                      e.stopPropagation();
+                      changeSlide(post.id, 'image');
+                    }}
+                  />
+                )}
+                {post.postImage1 && (
+                  <SlideButton
+                    label="Photo 1"
+                    active={currentSlide[post.id] === 'image1'}
+                    onClick={e => {
+                      e.stopPropagation();
+                      changeSlide(post.id, 'image1');
+                    }}
+                  />
+                )}
+                {post.postImage2 && (
+                  <SlideButton
+                    label="Photo 2"
+                    active={currentSlide[post.id] === 'image2'}
+                    onClick={e => {
+                      e.stopPropagation();
+                      changeSlide(post.id, 'image2');
+                    }}
+                  />
+                )}
+                {post.postVideo && (
+                  <SlideButton
+                    label="Video"
+                    active={currentSlide[post.id] === 'video'}
+                    onClick={e => {
+                      e.stopPropagation();
+                      changeSlide(post.id, 'video');
+                    }}
+                  />
+                )}
+              </div>
             </div>
+
             <div className="p-4">
-            <h3 className="text-lg font-semibold mb-2">{post.userName}</h3>
+              <h4 className="text-sm text-gray-500">{post.userName}</h4>
               <h3 className="text-lg font-semibold mb-2">{post.postName}</h3>
               <p className="text-gray-600 mb-4 line-clamp-3">
                 {post.postDescription}
               </p>
-              <p className="text-gray-600 mb-4 line-clamp-3">
-                {post.createdDate}
-              </p>
+              <p className="text-xs text-gray-400 mb-4">{post.createdDate}</p>
               <div className="flex justify-between">
                 <Button
                   variant="secondary"
-                  onClick={(e) => {
+                  onClick={e => {
                     e.stopPropagation();
                     onEditPost(post);
                   }}
@@ -119,7 +182,7 @@ export const PostList: React.FC<PostListProps> = ({
                 </Button>
                 <Button
                   variant="danger"
-                  onClick={(e) => {
+                  onClick={e => {
                     e.stopPropagation();
                     handleDelete(post.id);
                   }}
@@ -133,10 +196,27 @@ export const PostList: React.FC<PostListProps> = ({
         ))}
       </div>
 
-      {/* Render the modal */}
       {isModalOpen && selectedPost && (
         <PostModal post={selectedPost} onClose={closeModal} />
       )}
     </>
   );
 };
+
+/* ------------------------------------------------------------------ */
+/* Small, reusable pill‑style slide button                            */
+interface SlideButtonProps {
+  label: string;
+  active: boolean;
+  onClick: (e: React.MouseEvent) => void;
+}
+
+const SlideButton: React.FC<SlideButtonProps> = ({ label, active, onClick }) => (
+  <button
+    onClick={onClick}
+    className={`px-3 py-1 text-xs rounded 
+      ${active ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-800 hover:bg-gray-200'}`}
+  >
+    {label}
+  </button>
+);

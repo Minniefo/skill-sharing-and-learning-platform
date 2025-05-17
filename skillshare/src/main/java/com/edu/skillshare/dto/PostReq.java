@@ -12,5 +12,7 @@ public class PostReq {
     private String postName;
     private String postDescription;
     private String postImage;
+    private String postImage1;
+    private String postImage2;
     private String postVideo;
 }
