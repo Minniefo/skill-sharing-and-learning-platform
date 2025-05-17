@@ -1,6 +1,5 @@
 # skill-sharing-and-learning-platform
 
-# skill-sharing-and-learning-platform
 # Learning Plan & Progress Tracking Module
 
 This module is part of a Skill-Sharing Platform developed using Spring Boot for the backend and TypeScript for the frontend. The purpose of this module is to allow users to create, manage, and track personalized learning plans.
