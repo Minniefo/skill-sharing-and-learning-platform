@@ -37,7 +37,7 @@ const App = () => {
 
             <Route path="/posts" element={<ProtectedRoute><Layout><PostPage /></Layout></ProtectedRoute>} />
 
-            <Route path="/goals" element={<Layout><PersonalizedGoalsLayout /></Layout>} />
+            <Route path="/goals" element={<ProtectedRoute><Layout><PersonalizedGoalsLayout /></Layout></ProtectedRoute>} />
 
             {/* <Route path="/learning" element={<LearningPlanApp />} /> */}
 
