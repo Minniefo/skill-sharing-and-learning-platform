@@ -1,5 +1,82 @@
 # skill-sharing-and-learning-platform
 
+# 🧠 Quiz Management Module
+
+This module is part of the **Skill-Sharing Platform**, allowing users to take quizzes, view their scores, and for admins to manage quizzes effectively.
+
+## ✨ Key Features
+
+### 🔧 Backend (Spring Boot)
+- Retrieve all quizzes from the database.
+- Store quiz details: questions, answer options, and correct answers.
+- Fetch specific quizzes based on filters (e.g., category, tags).
+- Save user results and scores after completing a quiz.
+- Admins or quiz creators can delete quizzes.
+
+### 🌐 Frontend (Vite + TypeScript)
+- Show all available quizzes on the homepage or dedicated quiz section.
+- Users can answer multiple-choice or other quiz types.
+- A "Submit" button sends responses for evaluation.
+- Display results after submission (score + correct answers).
+- Admin interface to:
+  - Create new quizzes
+  - Edit existing quizzes
+  - Delete quizzes
+
+---
+
+## 🧰 Tech Stack
+
+- **Backend**: Java 17, Spring Boot, MongoDB, Spring Data JPA
+- **Frontend**: Vite, TypeScript, React/Angular, CSS3
+- **API Communication**: RESTful APIs with Axios or Fetch
+
+
+---
+
+### 📝 Post Management – IT22071934 (Rajana H T R)
+
+
+# 📸 Post Management Module
+
+This module handles user-generated posts in the **Skill-Sharing Platform**, allowing multimedia uploads and interaction through likes, comments, and sharing.
+
+
+## ✨ Key Features
+
+### 🔧 Backend (Spring Boot)
+- Fetch all posts from the database.
+- Store user posts with:
+  - Descriptions
+  - Up to 4 images or videos
+- Retrieve posts filtered by user or tags.
+- Update post images and descriptions via post ID.
+- Delete posts upon user request.
+
+### 🌐 Frontend (Vite + TypeScript)
+- Show all posts in a scrollable homepage feed.
+- Users can:
+  - Upload max 4 images/videos
+  - Add a mandatory description
+- Each post includes:
+  - Username
+  - Follow status
+  - Edit/Delete buttons
+  - Image carousel
+  - Description
+  - Likes, comments, share options
+- Users can edit or delete their posts anytime.
+
+---
+
+## 🧰 Tech Stack
+
+- **Backend**: Java 17, Spring Boot, MongoDB/GridFS, Spring Data
+- **Frontend**: Vite, TypeScript, React/Angular
+- **Image/Video Upload**: Multipart File Handling
+
+
+
 # Learning Plan & Progress Tracking Module
 
 This module is part of a Skill-Sharing Platform developed using Spring Boot for the backend and TypeScript for the frontend. The purpose of this module is to allow users to create, manage, and track personalized learning plans.
