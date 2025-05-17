@@ -11,6 +11,8 @@ import Home from "./pages/Home";
 import { Posts } from "./pages/Posts";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PostPage from "./pages/PostPage";
+import PersonalizedGoalsLayout from "./layouts/PersonalizedGoalsLayout";
+import LearningPlanApp from "./layouts/LearningPlanLayout";
 
 
 const App = () => {
@@ -34,6 +36,10 @@ const App = () => {
             <Route path="/testing" element={<ProtectedRoute><Layout><Posts /></Layout></ProtectedRoute>} />
 
             <Route path="/posts" element={<ProtectedRoute><Layout><PostPage /></Layout></ProtectedRoute>} />
+
+            <Route path="/goals" element={<Layout><PersonalizedGoalsLayout /></Layout>} />
+
+            <Route path="/learning" element={<LearningPlanApp />} />
 
           </Routes>
         </Router>

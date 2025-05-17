@@ -13,6 +13,8 @@ import {
   BookIcon,
   LayoutDashboardIcon,
   Camera,
+  Footprints,
+  FootprintsIcon
 } from "lucide-react";
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const { currentUser } = useAuth();
@@ -51,6 +53,13 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 >
                   <LayoutDashboardIcon className="h-5 w-5" />
                   <span>Dashboard</span>
+                </Link>
+                <Link
+                  to="/goals"
+                  className="flex items-center space-x-1 text-gray-600 hover:text-indigo-600"
+                >
+                  <FootprintsIcon className="h-5 w-5" />
+                  <span>My Tracker</span>
                 </Link>
                 <Link
                   to="/testing"
