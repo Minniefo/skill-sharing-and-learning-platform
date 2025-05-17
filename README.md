@@ -46,7 +46,7 @@ This module is part of a Skill-Sharing Platform developed using Spring Boot for 
 - Axios / Fetch API
 - HTML5, CSS
 - Date-picker library for calendar popup
-
+- [Vite](https://vitejs.dev/) 
 
 
 
