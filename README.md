@@ -13,7 +13,6 @@ This module is part of a Skill-Sharing Platform developed using Spring Boot for 
   - `due date` (calendar-based)
   - `priority` (based on due date proximity)
   - `progress status` (`Not Started`, `In Progress`, `Completed`)
-  - optional `PDF` resource upload
 - Update task details and progress status.
 - Retrieve all tasks sorted by priority (soonest due date first).
 - Retrieve tasks by specific user ID.
